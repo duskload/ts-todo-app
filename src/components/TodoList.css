@@ -1,0 +1,31 @@
+.todo-list-wrapper {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-list__text-field {
+  width: 400px;
+  margin-right: 25px !important;
+}
+
+.todo-list__button {
+  padding: 10px 15px;
+}
+
+.todo-list-add-new {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-list {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+}
