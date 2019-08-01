@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField, Button } from '@material-ui/core'
 import { ITodo } from '../containers/App/App'
 
-import './TodoList.css'
+import './TodoList.scss'
 
 interface ITodoListState {
   text: string
@@ -35,19 +35,19 @@ export default class TodoList extends React.Component<ITodoListProps, ITodoListS
       <div className="todo-list-wrapper">
         <form className="todo-list-add-new" autoComplete="off" onSubmit={this.onSubmit}>
           <TextField
-            className="todo-list__text-field"
+            className="todo-list-add-new__text-field"
             placeholder="Add todo"
             value={this.state.text}
             onChange={this.onChange}
           />
-          <Button className="todo-list__button" color="primary">
+          <Button className="todo-list-add-new__button" color="primary">
             Add todo
           </Button>
         </form>
         <div className="todo-list">
           {this.props.todos.map((item, index) => {
             return (
-              <div key={index} className="todo-item">
+              <div key={index} className="todo-list__item">
                 {item.text}
               </div>
             )
