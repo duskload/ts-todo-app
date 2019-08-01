@@ -1,7 +1,8 @@
 .todo-list-wrapper {
-  width: 100%;
+  width: 640px;
   justify-content: center;
   display: flex;
+  height: 100%;
   flex-direction: column;
 
   .todo-list-add-new {
@@ -11,12 +12,12 @@
     align-items: center;
 
     &__text-field {
-      width: 400px;
+      width: 500px;
       margin-right: 25px !important;
     }
   
     &__button {
-      padding: 10px 15px;
+      font-weight: bold;
     }
   }
 
@@ -27,5 +28,20 @@
     flex-direction: column;
     align-items: center;
     margin-top: 25px;
+
+    &--item-wrapper {
+      width: 100%;
+      padding: 5px 0;
+      word-break: break-word;
+    }
+
+    &__item {
+      width: 100%;
+      padding: 10px 0;
+
+      p {
+        padding-left: 10px;
+      }
+    }
   }
 }

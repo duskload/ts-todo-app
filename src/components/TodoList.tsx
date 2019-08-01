@@ -1,6 +1,9 @@
 import React from 'react'
 import { TextField, Button } from '@material-ui/core'
-import { ITodo } from '../containers/App/App'
+
+import { ITodo, IAddTodo } from '../constants/types'
+import { TodoItem } from './TodoItem'
+
 
 import './TodoList.scss'
 
@@ -9,7 +12,7 @@ interface ITodoListState {
 }
 
 interface ITodoListProps {
-  addItem(text: string): void
+  addTodo(payload: ITodo): IAddTodo
   todos: Array<ITodo>
 }
 
@@ -27,7 +30,14 @@ export default class TodoList extends React.Component<ITodoListProps, ITodoListS
   onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    this.props.addItem(this.state.text)
+    const item = {
+      id: this.props.todos.length + 1,
+      text: this.state.text,
+      completed: false
+    }
+
+    this.props.addTodo(item)
+    this.setState({ text: '' })
   }
 
   render() {
@@ -40,20 +50,15 @@ export default class TodoList extends React.Component<ITodoListProps, ITodoListS
             value={this.state.text}
             onChange={this.onChange}
           />
-          <Button className="todo-list-add-new__button" color="primary">
+          <Button variant="outlined" className="todo-list-add-new__button" color="primary">
             Add todo
           </Button>
         </form>
         <div className="todo-list">
-          {this.props.todos.map((item, index) => {
-            return (
-              <div key={index} className="todo-list__item">
-                {item.text}
-              </div>
-            )
-          })}
+          {this.props.todos.map(item => <TodoItem key={item.id} item={item} />)}
         </div>
       </div>
     )
   }
 }
+

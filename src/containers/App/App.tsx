@@ -1,39 +1,32 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import TodoList from '../../components/TodoList'
+import { ITodo, IAddTodo } from '../../constants/types'
+
+import { addTodo } from '../../actions/todos'
 
 import './App.scss'
 
-export interface ITodo {
-  text: string
-}
-
-interface IAppState {
+interface IAppProps {
   todos: Array<ITodo>
+  addTodo(payload: ITodo): IAddTodo
 }
 
-class App extends React.Component<{}, IAppState> {
-  state: IAppState = {
-    todos: []
-  }
-
-  addItem = (text: string) => {
-    const item = { text }
-
-    const todos = [...this.state.todos]
-
-    todos.push(item)
-
-    this.setState({ todos })
-  }
-
-  render() {
-    return (
-      <div className="app">
-        <h1>ToDo App</h1>
-        <TodoList todos={this.state.todos} addItem={this.addItem} />
-      </div>
-    )
-  }
+const App: React.FC<IAppProps> = props => {
+  return (
+    <div className="app">
+      <h1>ToDo App</h1>
+      <TodoList todos={props.todos} addTodo={props.addTodo} />
+    </div>
+  )
 }
 
-export default App
+const mapStateToProps = (state: any) => ({
+  todos: state.todos.todos,
+})
+
+export default connect(
+  mapStateToProps,
+  { addTodo }
+)(App)
