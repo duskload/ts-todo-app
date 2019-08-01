@@ -1,7 +1,7 @@
 import React from 'react'
 import TodoList from '../../components/TodoList'
 
-import './App.css'
+import './App.scss'
 
 export interface ITodo {
   text: string
