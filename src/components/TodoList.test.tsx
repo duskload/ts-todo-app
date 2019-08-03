@@ -36,6 +36,7 @@ describe('TodoList', () => {
       instance.onSubmit(e)
 
       expect(props.addTodo).toHaveBeenCalledWith(text)
+      expect(instance.state).toEqual({ text: '' })
     })
   })
 })
