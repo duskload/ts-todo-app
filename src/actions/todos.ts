@@ -1,22 +1,29 @@
-import { ADD_TODO, ITodo, IAddTodo } from '../constants/types'
+import { Types, AddTodoAction, RemoveTodoAction, MarkTodoComplete } from '../constants/types'
 
-export const addTodo = (payload: ITodo): IAddTodo => {
+let nextTodoId = 0
+
+export const addTodo = (text: string): AddTodoAction => {
   return {
-    type: ADD_TODO,
-    payload
+    type: Types.ADD_TODO,
+    payload: { todo: {
+      id: nextTodoId++,
+      text,
+      completed: false
+    }
+  }
   }
 }
 
-// export const removeTodo = id => {
-//   return {
-//     type: REMOVE_TODO,
-//     id
-//   }
-// }
+export const removeTodo = (id: number): RemoveTodoAction => {
+  return {
+    type: Types.REMOVE_TODO,
+    id
+  }
+}
 
-// export const editTodo = id => {
-//   return {
-//     type: EDIT_TODO,
-//     id
-//   }
-// }
+export const markTodoComplete = (id: number): MarkTodoComplete => {
+  return {
+    type: Types.MARK_COMPLETE,
+    id
+  }
+}

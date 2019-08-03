@@ -1,8 +1,10 @@
 
 
-export const ADD_TODO = 'ADD_TODO'
-export const REMOVE_TODO = 'REMOVE_TODO'
-export const EDIT_TODO = 'EDIT_TODO'
+export enum Types {
+  ADD_TODO = 'ADD_TODO',
+  REMOVE_TODO = 'REMOVE_TODO',
+  MARK_COMPLETE = 'MARK_COMPLETE'
+}
 
 export interface ITodo {
   id: number,
@@ -10,11 +12,25 @@ export interface ITodo {
   completed: boolean
 }
 
-export interface IAddTodo {
-  type: string,
-  payload: ITodo
+export interface AddTodoAction {
+  type: Types.ADD_TODO,
+  payload: {
+    todo: ITodo
+  }
 }
 
-export interface ITodoState {
+export interface RemoveTodoAction {
+  type: Types.REMOVE_TODO,
+  id: number
+}
+
+export interface MarkTodoComplete {
+  type: Types.MARK_COMPLETE,
+  id: number
+}
+
+export interface IState {
   todos: ITodo[]
 }
+
+export type TodoActions = AddTodoAction | RemoveTodoAction | MarkTodoComplete

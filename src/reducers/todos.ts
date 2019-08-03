@@ -1,16 +1,31 @@
-import { ADD_TODO, IAddTodo, ITodoState } from '../constants/types'
+import { Types, TodoActions, IState } from '../constants/types'
+import * as R from 'rambda'
 
-const initialState: ITodoState = {
+const initialState: IState = {
   todos: []
 }
 
-export default (state = initialState, action: IAddTodo): ITodoState => {
+export function reducer (state: IState = initialState, action: TodoActions) {
   switch (action.type) {
-    case ADD_TODO:
+    case Types.ADD_TODO:
       return {
         ...state,
-        todos: [...state.todos, action.payload]
+        todos: [...state.todos, action.payload.todo]
       }
+    case Types.REMOVE_TODO:
+      const isNotEven = (x: any) => x.id !== action.id
+      return {
+        ...state,
+        todos: R.filter(isNotEven, state.todos)
+      }
+    case Types.MARK_COMPLETE:
+      const todos = state.todos.map(item => {
+        if (item.id === action.id) {
+          item.completed = true
+        }
+        return item
+      })
+      return { ...state, todos }
     default:
       return state
   }
