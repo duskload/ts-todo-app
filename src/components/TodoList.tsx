@@ -1,6 +1,8 @@
 import React from 'react'
-import { TextField, Button } from '@material-ui/core'
-import { ITodo } from '../containers/App/App'
+import { TextField } from '@material-ui/core'
+
+import { ITodo, AddTodoAction, RemoveTodoAction, MarkTodoComplete } from '../constants/types'
+import { TodoItem } from './TodoItem'
 
 import './TodoList.scss'
 
@@ -9,8 +11,10 @@ interface ITodoListState {
 }
 
 interface ITodoListProps {
-  addItem(text: string): void
-  todos: Array<ITodo>
+  addTodo(text: string): AddTodoAction
+  removeTodo(id: number): RemoveTodoAction
+  markTodoComplete(id: number): MarkTodoComplete
+  todos: ITodo[]
 }
 
 export default class TodoList extends React.Component<ITodoListProps, ITodoListState> {
@@ -19,15 +23,14 @@ export default class TodoList extends React.Component<ITodoListProps, ITodoListS
   }
 
   onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-
     this.setState({ text: event.target.value })
   }
 
   onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    this.props.addItem(this.state.text)
+    this.props.addTodo(this.state.text)
+    this.setState({ text: '' })
   }
 
   render() {
@@ -36,22 +39,21 @@ export default class TodoList extends React.Component<ITodoListProps, ITodoListS
         <form className="todo-list-add-new" autoComplete="off" onSubmit={this.onSubmit}>
           <TextField
             className="todo-list-add-new__text-field"
-            placeholder="Add todo"
+            placeholder="What needs to be done?"
             value={this.state.text}
             onChange={this.onChange}
           />
-          <Button className="todo-list-add-new__button" color="primary">
-            Add todo
-          </Button>
         </form>
         <div className="todo-list">
-          {this.props.todos.map((item, index) => {
-            return (
-              <div key={index} className="todo-list__item">
-                {item.text}
-              </div>
-            )
-          })}
+          {this.props.todos.map(item => (
+            <TodoItem
+              key={item.id}
+              removeTodo={this.props.removeTodo}
+              markTodoComplete={this.props.markTodoComplete}
+              completed={item.completed}
+              item={item}
+            />
+          ))}
         </div>
       </div>
     )
