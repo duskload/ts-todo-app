@@ -10,14 +10,14 @@ interface ITodoListState {
   text: string
 }
 
-interface ITodoListProps {
+export interface ITodoListProps {
   addTodo(text: string): AddTodoAction
   removeTodo(id: number): RemoveTodoAction
   markTodoComplete(id: number): MarkTodoComplete
   todos: ITodo[]
 }
 
-export default class TodoList extends React.Component<ITodoListProps, ITodoListState> {
+export class TodoList extends React.Component<ITodoListProps, ITodoListState> {
   state: ITodoListState = {
     text: '',
   }
@@ -59,3 +59,5 @@ export default class TodoList extends React.Component<ITodoListProps, ITodoListS
     )
   }
 }
+
+export default TodoList

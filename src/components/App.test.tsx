@@ -1,9 +1,21 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { App } from './App'
+import { App, IAppProps } from './App'
+import { shallow } from 'enzyme'
 
-it.skip('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<App />, div)
-  ReactDOM.unmountComponentAtNode(div)
+describe('App', () => {
+  let props: IAppProps
+  let wrapper: any
+  beforeAll(() => {
+    props = {
+      todos: [],
+      addTodo: jest.fn(),
+      removeTodo: jest.fn(),
+      markTodoComplete: jest.fn(),
+    }
+    wrapper = shallow(<App {...props} />)
+  })
+
+  it('App renders without crashing', () => {
+    expect(wrapper).toHaveLength(1)
+  })
 })

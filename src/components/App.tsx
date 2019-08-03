@@ -7,7 +7,7 @@ import { ITodo, AddTodoAction, RemoveTodoAction, MarkTodoComplete } from '../con
 
 import './App.scss'
 
-interface IAppProps {
+export interface IAppProps {
   todos: ITodo[]
   addTodo(text: string): AddTodoAction
   removeTodo(id: number): RemoveTodoAction
